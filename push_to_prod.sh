@@ -1,2 +1,2 @@
 #!/bin/bash
-scp -r virtualclassroom pot:/opt/
+ssh webroot@oneschool.pw "cd ~/virtualclassroom; git pull"
