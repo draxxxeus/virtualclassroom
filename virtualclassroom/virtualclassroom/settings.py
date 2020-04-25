@@ -25,7 +25,7 @@ SECRET_KEY = '9b@pq1x&z9l_ubgbo$yk5_goh5q-9)2_l$itc@04z=o_x=1&x8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['oneschool.pw']
 
 
 # Application definition
