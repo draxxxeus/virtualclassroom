@@ -7,6 +7,7 @@ class BaseModel(models.Model):
         if self.__getattribute__('name'):
             return self.__getattribute__('name') #TODO: test if __getattributes__ or __getitem__ is useful
 
+    # this is to make the class abstract so that django do not create table for it
     class Meta:
         abstract = True
 
