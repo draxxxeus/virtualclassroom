@@ -55,6 +55,7 @@ class Student(BaseModel):
 
 class Course(BaseModel):
     name = models.CharField(max_length=100)
+    created_by = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
     academic_year = models.ForeignKey(AcademicYear, on_delete=models.CASCADE)
     standard = models.ForeignKey(Standard, on_delete=models.CASCADE)
@@ -71,7 +72,7 @@ class Lecture(BaseModel):
     date_modified = models.DateTimeField(auto_now=True)
 
 
-class LectureResources(BaseModel):
+class LectureResource(BaseModel):
     name = models.CharField(max_length=100)
     lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE)
     uploaded_by = models.ForeignKey(Teacher, on_delete=models.CASCADE)
