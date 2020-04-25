@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from . import views
+import virtualclassroom.app.views as views
 
 urlpatterns = [
     path('', views.index, name='index'),
