@@ -11,5 +11,5 @@ def login(request):
 def dashboard(request):
     return render(request, 'app/dashboard.html')
 
-def list_all_lectures(request):
-    pass
+def lecture(request):
+    return render(request, 'app/lecture.html')
