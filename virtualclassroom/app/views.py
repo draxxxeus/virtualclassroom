@@ -12,3 +12,6 @@ def dashboard(request):
 
 def lecture(request):
     return render(request, 'lecture.html')
+
+def pricing(request):
+    return render(request, 'pricing.html')
