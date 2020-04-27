@@ -2,13 +2,13 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, "app/index.html")
+    return render(request, "index.html")
 
 def login(request):
-    return render(request, 'app/login.html')
+    return render(request, 'login.html')
 
 def dashboard(request):
-    return render(request, 'app/dashboard.html')
+    return render(request, 'dashboard.html')
 
 def lecture(request):
-    return render(request, 'app/lecture.html')
+    return render(request, 'lecture.html')
