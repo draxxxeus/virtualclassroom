@@ -4,6 +4,5 @@ from .lecture import Lecture
 from .lectureResources import LectureResource
 from .school import School
 from .standard import Standard
-from .student import Student
 from .subject import Subject
-from .teacher import Teacher
+from .user import User
