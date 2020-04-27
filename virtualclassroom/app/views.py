@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("<h1>Hello potters!!</h1>")
+    return render(request, "app/index.html")
 
 def login(request):
     return render(request, 'app/login.html')
@@ -11,5 +10,5 @@ def login(request):
 def dashboard(request):
     return render(request, 'app/dashboard.html')
 
-def list_all_lectures(request):
-    pass
+def lecture(request):
+    return render(request, 'app/lecture.html')
