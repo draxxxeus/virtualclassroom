@@ -5,5 +5,5 @@ from .standard import Standard
 
 
 class User(AbstractUser):
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    school = models.ForeignKey(School, on_delete=models.SET_NULL, default=None, null=True)
     standard = models.ForeignKey(Standard, null=True, on_delete=models.SET_NULL, default=None)
