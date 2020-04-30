@@ -6,9 +6,8 @@ from .user import User
 
 class Resource(BaseModel):
     RESOURCE_CHOICES = [
-            ('A', 'Assignment'),
+            ('A', 'Assignments'),
             ('R', 'Recording'),
-            ('N', 'Notes'),
             ('O', 'Other')
     ]
 
