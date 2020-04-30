@@ -45,3 +45,9 @@ def logout(request):
 		pass
 
 	return HttpResponseRedirect(reverse('login'))
+
+def upload(request):
+    if request.session.get('user_id', False) and request.session.get('role') != 'student':
+        return render(request, 'upload.html')
+    else
+        return HttpResponseRedirect(reverse('login'))

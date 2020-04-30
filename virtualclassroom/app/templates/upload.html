@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+      {% load static %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/upload.css' %}">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-9 col-lg-7 mx-auto">
+						<div class="card card-newlecture my-3">
+							<div class="card-body">
+								<h5 class="card-title text-center">New Lecture</h5>
+								<form class="form-newlecture" method="post" action="/upload-lecture/">
+									<div class="form-label-group">
+										<select name="course" class="form-control" required>
+											<option>IX - Economics</option>
+											<option>IX - Political Science</option>
+											<option>XI - Accounts</option>
+											<option>XI - Economics</option>
+										</select>
+									</div>
+									<div class="form-label-group">
+										<input type="number" id="chapter" name="chapter" min="1" max="50" class="form-control" placeholder="Chapter Number">
+										<label for="chapter">(Optional) Chapter Number</label>
+									</div>
+
+									<div class="form-label-group">
+										<input type="text" id="topic" name="topic" class="form-control" placeholder="topic">
+										<label for="topic">(Optional) Topic</label>
+									</div>
+
+									<div class="form-label-group">
+										<input type="file" id="recording" name="recording" class="form-control" placeholder="recording" accept="audio/*,video/*" files required>
+										<label for="recording">Recording - Audio or Video Only</label>
+									</div>
+
+									<div class="form-label-group">
+										<input type="file" id="notes" name="notes" class="form-control" placeholder="notes" multiple accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow" files>
+										<label for="notes">(Optional) Notes/Assignments - Docs, PPTs, Images or PDFs</label>
+									</div>
+
+									<div class="form-label-group">
+										<input type="date" id="publish_on" name="publish_on" class="form-control" placeholder="publish_on">
+										<label for="publish_date">(Optional) Publish On</label>
+									</div>
+
+									<div class="form-label-group">
+										<input type="date" id="complete_by" name="complete_by" class="form-control" placeholder="complete_by">
+										<label for="topic">(Optional) Complete By</label>
+									</div>
+
+									<div class="custom-control custom-checkbox mb-3">
+										<input type="checkbox" class="custom-control-input" id="show_book" name="show_book">
+										<label class="custom-control-label" for="show_book">Show book on the lecture page</label>
+									</div>
+
+									<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Save</button>
+									<hr class="my-4">
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock %}

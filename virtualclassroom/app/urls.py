@@ -24,4 +24,5 @@ urlpatterns = [
     path('lecture/', views.lecture, name='lecture'),
     path('pricing/', views.pricing, name='pricing'),
     path('logout/', views.logout, name='logout'),
+    path('upload/', views.upload, name='upload'),
 ]
