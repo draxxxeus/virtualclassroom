@@ -10,5 +10,6 @@ class Lecture(BaseModel):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     teacher = models.ForeignKey(User, on_delete=models.CASCADE)
     publish_on = models.DateTimeField()
+    complete_by = models.DateTimeField()
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
