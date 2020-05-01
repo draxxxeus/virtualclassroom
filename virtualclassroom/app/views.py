@@ -47,7 +47,46 @@ def logout(request):
 	return HttpResponseRedirect(reverse('login'))
 
 def upload(request):
-    if request.session.get('user_id', False) and request.session.get('role') != 'student':
-        return render(request, 'upload.html')
-    else
-        return HttpResponseRedirect(reverse('login'))
+    if request.method == 'GET':
+        if request.session.get('user_id', False) and request.session.get('role') != 'student':
+            courses = Course.get_courses(request.session.get('user_id'))
+            context = {'courses': courses}
+            return render(request, 'upload.html', context)
+        else:
+            return HttpResponseRedirect(reverse('login'))
+    elif request.method == 'POST':
+        if request.session.get('user_id', False) and request.session.get('role') != 'student':
+            lecture_form = UploadLectureForm(request.POST)
+            recording = request.FILES.getlist('recording')[0]
+            notes = request.FILES.getlist('notes')
+
+            if lecture_form.is_valid():
+                lecture = lecture_form.save(commit=False)
+                lecture.teacher = request.user
+                lecture.save()
+
+                resource_recording = Resource(
+                        media=recording,
+                        type='R',
+                        lecture=lecture,
+                        publish_on=lecture.publish_on,
+                        complete_by=lecture.complete_by
+                        )
+                resource_recording.save()
+
+                for note in notes:
+                    resource_notes = Resource(
+                            media=note,
+                            type='A',
+                            lecture=lecture,
+                            publish_on=lecture.publish_on,
+                            complete_by=lecture.complete_by
+                            )
+                    resource_notes.save()
+            else:
+                print("invalid form")
+
+
+            return HttpResponseRedirect(reverse('lecture'))
+        else:
+            return HttpResponseRedirect(reverse('login'))
