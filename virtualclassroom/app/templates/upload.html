@@ -8,13 +8,13 @@
 						<div class="card card-newlecture my-3">
 							<div class="card-body">
 								<h5 class="card-title text-center">New Lecture</h5>
-								<form class="form-newlecture" method="post" action="/upload-lecture/">
+								<form class="form-newlecture" method="post" action="/upload/" enctype="multipart/form-data">
+                  {% csrf_token %}
 									<div class="form-label-group">
 										<select name="course" class="form-control" required>
-											<option>IX - Economics</option>
-											<option>IX - Political Science</option>
-											<option>XI - Accounts</option>
-											<option>XI - Economics</option>
+                      {% for course in courses%}
+                      <option value="{{course.id}}">{{course.standard}} - {{course.subject}}</option>
+                      {% endfor %}
 										</select>
 									</div>
 									<div class="form-label-group">
