@@ -1,7 +1,6 @@
 import uuid
 from .baseModel import *
-from .course import Course
-from .user import User
+from .resource import Resource
 
 
 class Lecture(BaseModel):
@@ -14,3 +13,23 @@ class Lecture(BaseModel):
     complete_by = models.DateTimeField(default=None, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
+
+    @classmethod
+    def get_lecture(cls, lecture_id, user):
+        try:
+            lecture = Lecture.objects.get(id=lecture_id)
+            if lecture.course.standard == user.standard:
+                recording = Resource.get_resources(lecture=lecture, type='R')[0]
+                notes = Resource.get_resources(lecture=lecture, type='A')
+
+                prepared_lecture = {
+                        'lecture': lecture,
+                        'recording': recording,
+                        'notes': notes
+                }
+
+                return prepared_lecture
+            else:
+                raise
+        except Exception as e:
+            return None
