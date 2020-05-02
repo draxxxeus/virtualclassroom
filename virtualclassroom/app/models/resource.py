@@ -18,3 +18,9 @@ class Resource(BaseModel):
     complete_by = models.DateTimeField(default=None, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
+
+    @classmethod
+    def get_resources(cls, lecture, type):
+        res = Resource.objects.filter(lecture=lecture, type=type)
+
+        return res
