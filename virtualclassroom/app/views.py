@@ -62,6 +62,7 @@ def upload(request):
 
             if lecture_form.is_valid():
                 lecture = lecture_form.save(commit=False)
+                lecture.index = Lecture.objects.filter(course=lecture.course).order_by('-index')[:1][0].index + 1
                 lecture.teacher = request.user
                 lecture.save()
 
