@@ -24,10 +24,8 @@ def login(request):
         return render(request, 'login.html')
 
 def dashboard(request):
-    if request.session.get('user_id', False):
-        return render(request, 'dashboard.html')
-    else:
-        return HttpResponseRedirect(reverse('login'))
+    context = Lecture.get_lectures_for_user(user=request.user)
+    return render(request, 'dashboard.html', context)
 
 def lecture(request):
     if request.session.get('user_id', False):
