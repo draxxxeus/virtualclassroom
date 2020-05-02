@@ -37,3 +37,13 @@ class Lecture(BaseModel):
                 raise
         except Exception as e:
             return None
+
+    @classmethod
+    def get_lectures_for_user(cls, user, show_unpublished=False):
+        try:
+            courses = Course.get_courses_for_user(user)
+            lectures = Lecture.objects.filter(course__in=courses).filter(publish_on__lte=datetime.now()).filter(complete_by__gte=datetime.now()).order_by('index')
+
+            return {'lectures': list(lectures)}
+        except:
+            return None
