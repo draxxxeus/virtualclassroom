@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from app.models import Lecture, Resource
+from ..models import Lecture, Resource
 
 class UploadLectureForm(ModelForm):
     class Meta:

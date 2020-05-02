@@ -1,1 +1,1 @@
-from .forms import *
+from .upload_lecture import UploadLectureForm
