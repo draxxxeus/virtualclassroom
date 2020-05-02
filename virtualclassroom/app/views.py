@@ -1,15 +1,22 @@
-from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
+from django.shortcuts import render
 from django.urls import reverse
+
+from .models import Course, Lecture, Resource
+from .forms import UploadLectureForm
 
 
 def index(request):
     return render(request, "index.html")
 
 def login(request):
-    if request.session.get('user_id', False):
-        return render(request, 'dashboard.html')
+    if request.method == 'GET':
+        if request.session.get('user_id', False):
+            pass
+        else:
+            return render(request, 'login.html')
     elif request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -19,22 +26,22 @@ def login(request):
                 request.session['user_id'] = str(user.id)
                 return HttpResponseRedirect(reverse('dashboard'))
         else:
-            return HttpResponseRedirect(reverse('index'))
-    else:
-        return render(request, 'login.html')
+            return HttpResponseRedirect(reverse('login'))
 
+@login_required
 def dashboard(request):
     context = Lecture.get_lectures_for_user(user=request.user)
     return render(request, 'dashboard.html', context)
 
+@login_required
 def lecture(request):
-    if request.session.get('user_id', False):
-        return render(request, 'lecture.html')
-    else:
-        return HttpResponseRedirect(reverse('login'))
+    lecture_id = request.GET.get('id', False)
 
-def pricing(request):
-    return render(request, 'pricing.html')
+    context = Lecture.get_lecture(lecture_id=lecture_id, user=request.user)
+    if context:
+        return render(request, 'lecture.html', context)
+    else:
+        return HttpResponseNotFound()
 
 def logout(request):
 	try:
