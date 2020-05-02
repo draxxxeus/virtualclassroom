@@ -88,6 +88,6 @@ def upload(request):
                 print("invalid form")
 
 
-            return HttpResponseRedirect(reverse('lecture'))
+            return HttpResponseRedirect(reverse('lecture') + '?id=' + str(lecture.id))
         else:
             return HttpResponseRedirect(reverse('login'))
