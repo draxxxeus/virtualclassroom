@@ -1,7 +1,10 @@
 import uuid
+
 from django.utils.timezone import now
+from django.db import models
 from datetime import datetime
-from .baseModel import *
+
+from .baseModel import BaseModel
 from .course import Course
 from .resource import Resource
 
@@ -23,19 +26,19 @@ class Lecture(BaseModel):
         try:
             lecture = Lecture.objects.get(id=lecture_id)
             if lecture.course.standard == user.standard:
-                recording = Resource.get_resources(lecture=lecture, type='R')[0]
+                recording = Resource.get_resources(lecture=lecture, type='R')
                 assignments = Resource.get_resources(lecture=lecture, type='A')
 
                 prepared_lecture = {
                         'lecture': lecture,
-                        'recording': recording,
+                        'recording': recording[0],
                         'assignments': assignments
                 }
 
                 return prepared_lecture
             else:
                 raise
-        except Exception as e:
+        except Exception:
             return None
 
     @classmethod
@@ -45,5 +48,5 @@ class Lecture(BaseModel):
             lectures = Lecture.objects.filter(course__in=courses).filter(publish_on__lte=datetime.now()).filter(complete_by__gte=datetime.now()).order_by('index')
 
             return {'lectures': list(lectures)}
-        except:
+        except Exception:
             return None

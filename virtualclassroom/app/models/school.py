@@ -1,5 +1,8 @@
 import uuid
-from .baseModel import *
+
+from django.db import models
+
+from .baseModel import BaseModel
 
 
 class School(BaseModel):

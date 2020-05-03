@@ -1,9 +1,13 @@
 import uuid
-from .baseModel import *
+
+from django.db import models
+
+from .baseModel import BaseModel
 
 
 def get_textbook_path(instance, filename):
-	return 'courses/{0}/{1}'.format(instance.id, filename)
+    return 'courses/{0}/{1}'.format(instance.id, filename)
+
 
 class Course(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -15,7 +19,6 @@ class Course(BaseModel):
     textbook = models.FileField(upload_to=get_textbook_path, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-
 
     @classmethod
     def get_courses(cls, user_id):
@@ -29,5 +32,5 @@ class Course(BaseModel):
             courses = Course.objects.filter(standard=user.standard)
 
             return list(courses)
-        except:
+        except Exception:
             return None

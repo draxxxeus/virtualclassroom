@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
+from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render
 from django.urls import reverse
 
@@ -10,6 +10,7 @@ from .forms import UploadLectureForm
 
 def index(request):
     return render(request, "index.html")
+
 
 def login_user(request):
     if request.method == 'GET':
@@ -30,10 +31,12 @@ def login_user(request):
         else:
             return HttpResponseRedirect(reverse('login'))
 
+
 @login_required
 def dashboard(request):
     context = Lecture.get_lectures_for_user(user=request.user)
     return render(request, 'dashboard.html', context)
+
 
 @login_required
 def lecture(request):
@@ -45,13 +48,16 @@ def lecture(request):
     else:
         return HttpResponseNotFound()
 
-def logout_user(request):
-	try:
-		del request.session['user_id']
-	except KeyError:
-		pass
 
-	return HttpResponseRedirect(reverse('login'))
+def logout_user(request):
+    try:
+        logout(request)
+        del request.session['user_id']
+    except KeyError:
+        pass
+
+    return HttpResponseRedirect(reverse('login'))
+
 
 @login_required
 def upload(request):
@@ -99,7 +105,6 @@ def upload(request):
                     resource_notes.save()
             else:
                 print("invalid form")
-
 
             return HttpResponseRedirect(reverse('lecture') + '?id=' + str(lecture.id))
         else:
