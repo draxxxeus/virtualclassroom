@@ -12,7 +12,7 @@
                   {% csrf_token %}
 									<div class="form-label-group">
 										<select name="course" class="form-control" required>
-                      {% for course in courses%}
+                      {% for course in courses %}
                       <option value="{{course.id}}">{{course.standard}} - {{course.subject}}</option>
                       {% endfor %}
 										</select>

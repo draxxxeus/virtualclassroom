@@ -18,3 +18,12 @@ class Course(BaseModel):
         courses = Course.objects.filter(teacher=user_id)
 
         return courses
+
+    @classmethod
+    def get_courses_for_user(cls, user):
+        try:
+            courses = Course.objects.filter(standard=user.standard)
+
+            return list(courses)
+        except:
+            return None

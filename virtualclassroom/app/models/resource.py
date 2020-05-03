@@ -2,6 +2,9 @@ import uuid
 from .baseModel import *
 
 
+def get_resource_path(instance, filename):
+	return 'lectures/{0}/{1}/{2}'.format(instance.lecture_id, instance.type, filename)
+
 class Resource(BaseModel):
     RESOURCE_CHOICES = [
             ('A', 'Assignments'),
@@ -10,7 +13,7 @@ class Resource(BaseModel):
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    media = models.FileField(upload_to='uploads/')
+    media = models.FileField(upload_to=get_resource_path)
     lecture = models.ForeignKey('Lecture', on_delete=models.CASCADE)
     type = models.CharField(max_length=1, choices=RESOURCE_CHOICES)
     link = models.URLField(max_length=512, default=None, null=True, blank=True)
