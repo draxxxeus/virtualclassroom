@@ -1,8 +1,7 @@
 /* Other Classes for Page Styling */
 
 body {
-  background: #007bff;
-  background: linear-gradient(to right, #0062E6, #33AEFF);
+  background: #696969;
 }
 
 /* Change this breakpoint if you change the breakpoint of the navbar */
