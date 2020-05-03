@@ -25,6 +25,7 @@ def login_user(request):
             if user.is_active:
                 login(request, user)
                 request.session['user_id'] = str(user.id)
+                request.session['role'] = user.role
                 return HttpResponseRedirect(reverse('dashboard'))
         else:
             return HttpResponseRedirect(reverse('login'))
@@ -55,14 +56,14 @@ def logout_user(request):
 @login_required
 def upload(request):
     if request.method == 'GET':
-        if request.session.get('user_id', False) and request.session.get('role') != 'student':
+        if request.session.get('user_id', False) and request.session.get('role') != 'RO':
             courses = Course.get_courses(request.session.get('user_id'))
             context = {'courses': courses}
             return render(request, 'upload.html', context)
         else:
             return HttpResponseRedirect(reverse('login'))
     elif request.method == 'POST':
-        if request.session.get('user_id', False) and request.session.get('role') != 'student':
+        if request.session.get('user_id', False) and request.session.get('role') != 'RO':
             lecture_form = UploadLectureForm(request.POST)
             recording = request.FILES.getlist('recording')[0]
             notes = request.FILES.getlist('notes')
