@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponseNotFound, JsonResponse
+from django.http import HttpResponseRedirect, Http404, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 
@@ -46,7 +46,7 @@ def lecture(request):
     if context:
         return render(request, 'lecture.html', context)
     else:
-        return HttpResponseNotFound()
+        raise Http404
 
 
 def logout_user(request):
