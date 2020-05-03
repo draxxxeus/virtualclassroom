@@ -42,10 +42,13 @@ class Lecture(BaseModel):
             return None
 
     @classmethod
-    def get_lectures_for_user(cls, user, show_unpublished=False):
+    def get_lectures_for_user(cls, user):
         try:
             courses = Course.get_courses_for_user(user)
-            lectures = Lecture.objects.filter(course__in=courses).filter(publish_on__lte=datetime.now()).filter(complete_by__gte=datetime.now()).order_by('index')
+            if user.role == 'RW':
+                lectures = Lecture.objects.filter(teacher=user).order_by('-date_created')
+            else:
+                lectures = Lecture.objects.filter(course__in=courses).filter(publish_on__lte=datetime.now()).filter(complete_by__gte=datetime.now()).order_by('index')
 
             return {'lectures': list(lectures)}
         except Exception:
