@@ -1,30 +1,59 @@
 {% extends "base.html" %}
 {% block content %}
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
-    <div id="page-content">
-	<div class="container">
-    <h1 class="my-4">{{lecture.course.standard}} - {{lecture.course.subject}}
-      <small>Lecture {{lecture.index}} | {{lecture.chapter}} - {{lecture.topic}}</small>
-		</h1>
-		<div class="row">
-			<div class="col-md-8">
-        <video class="img-fluid" src="{{recording.media.url}}" alt="" controls controlsList="nodownload noremoteplayback">
-			</div>
-			<div class="col-md-4">
-        {% if lecture.course.textbook %}
-        <object width="400" height="500" type="application/pdf" data="{{lecture.course.textbook.url}}">
-          <p>PDF cannot be displayed.</p>
-        </object>
-        {% endif %}
-				<h3 class="my-3">Assignments</h3>
-				<ul>
-					{% for assignment in assignments %}
-						<li><a href="{{assignment.media.url}}">{{assignment.media.name}}</a></li>
-					{% endfor %}
-				</ul>
-			</div>
-		</div>
-	</div>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/lecture.css' %}">
+    <div class="container">
+      <h1 class="my-4">{{lecture.course.standard}} - {{lecture.course.subject}}
+        <small>Lecture {{lecture.index}} | {{lecture.chapter}} - {{lecture.topic}}</small>
+      </h1>
+      <div class="row">
+        <div class="col-md-8">
+          <video height="400" class="img-fluid" src="{{recording.media.url}}" alt="" controls controlsList="nodownload noremoteplayback" cross-origin="use-credentials">
+        </div>
+        <div class="col-md-4">
+          {% if lecture.course.textbook %}
+          <iframe height="400" src="{{lecture.course.textbook.url}}" />
+          </iframe>
+          {% endif %}
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-8">
+        <h3 class="my-3">Assignments</h3>
+        <ul class="list-unstyled">
+          {% for assignment in assignments %}
+            <li><a class="white" href="{{assignment.media.url}}">{{assignment.media.name}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Discussions</h3>
+        <form id="new_comment" method="POST" action="/lecture/post-comment/">
+          {% csrf_token %}
+          <input type="hidden" name="lecture_id" value="{{lecture.id}}">
+          <div class="form-group">
+            <label for="comment">Ask a question:</label>
+            <textarea class="form-control" name="comment" rows="3" cols="70" minlength="30" maxlength="1000" wrap></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-dark float-right">Post</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <ul id="discussions" class="list-unstyled">
+          {% for discussion in discussions %}
+            <small>{{discussion.user.first_name}} {{discussion.user.last_name}}</small>
+            <small class="float-right">{{discussion.date_created}}</small>
+            <li>{{discussion.comment}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
   </div>
+  <script src="{% static 'js/lecture.js' %}"></script>
 {% endblock %}

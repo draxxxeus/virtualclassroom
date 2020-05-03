@@ -22,6 +22,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('login/', views.login_user, name='login'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('lecture/post-comment/', views.post_comment, name="post_comment"),
     path('lecture/', views.lecture, name='lecture'),
     path('logout/', views.logout_user, name='logout'),
     path('upload/', views.upload, name='upload'),

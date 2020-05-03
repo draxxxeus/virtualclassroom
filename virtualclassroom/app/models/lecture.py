@@ -7,6 +7,7 @@ from datetime import datetime
 from .baseModel import BaseModel
 from .course import Course
 from .resource import Resource
+from .discussion import Discussion
 
 
 class Lecture(BaseModel):
@@ -22,20 +23,23 @@ class Lecture(BaseModel):
     date_modified = models.DateTimeField(auto_now=True)
 
     @classmethod
-    def get_lecture(cls, lecture_id, user):
+    def get_lecture(cls, lecture_id, user, metadata=True):
         try:
             lecture = Lecture.objects.get(id=lecture_id)
             if lecture.course.standard == user.standard:
-                recording = Resource.get_resources(lecture=lecture, type='R')
-                assignments = Resource.get_resources(lecture=lecture, type='A')
-
-                prepared_lecture = {
-                        'lecture': lecture,
-                        'recording': recording[0],
-                        'assignments': assignments
-                }
-
-                return prepared_lecture
+                if metadata:
+                    recording = Resource.get_resources(lecture=lecture, type='R')
+                    assignments = Resource.get_resources(lecture=lecture, type='A')
+                    discussions = Discussion.get_discussions(lecture=lecture)
+                    prepared_lecture = {
+                            'lecture': lecture,
+                            'recording': recording[0],
+                            'assignments': assignments,
+                            'discussions': discussions
+                    }
+                    return prepared_lecture
+                else:
+                    return lecture
             else:
                 raise
         except Exception:

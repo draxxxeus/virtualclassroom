@@ -1,10 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponseRedirect, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import Course, Lecture, Resource
+from .models import Course, Discussion, Lecture, Resource
 from .forms import UploadLectureForm
 
 
@@ -109,3 +109,23 @@ def upload(request):
             return HttpResponseRedirect(reverse('lecture') + '?id=' + str(lecture.id))
         else:
             return HttpResponseRedirect(reverse('login'))
+
+
+@login_required
+def post_comment(request):
+    if request.method == 'POST':
+        lecture_id = request.POST['lecture_id']
+        comment = request.POST['comment']
+        lecture = Lecture.get_lecture(lecture_id=lecture_id, user=request.user, metadata=False)
+
+        if lecture:
+            discussion = Discussion.post_comment(comment=comment, user=request.user, lecture=lecture)
+            context = {
+                        'comment': discussion.comment,
+                        'user': "{0} {1}".format(request.user.first_name, request.user.last_name),
+                        'date_created': discussion.date_created
+                      }
+        else:
+            context = ''
+
+        return JsonResponse(context)
