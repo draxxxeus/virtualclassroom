@@ -12,6 +12,11 @@
         <video class="img-fluid" src="{{recording.media.url}}" alt="" controls controlsList="nodownload noremoteplayback">
 			</div>
 			<div class="col-md-4">
+        {% if lecture.course.textbook %}
+        <object width="400" height="500" type="application/pdf" data="{{lecture.course.textbook.url}}">
+          <p>PDF cannot be displayed.</p>
+        </object>
+        {% endif %}
 				<h3 class="my-3">Assignments</h3>
 				<ul>
 					{% for assignment in assignments %}
