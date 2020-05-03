@@ -2,9 +2,8 @@
 {% block content %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
-  <div id="page-content">
     <div class="container">
-      <div class="row text-center text-lg-left">
+      <div class="row text-center text-lg-left pt-5">
         {% for lecture in lectures %}
           <div class="col-lg-3 col-md-4 col-6">
             <a href="/lecture/?id={{lecture.id}}" class="d-block mb-4 h-100">
@@ -14,5 +13,4 @@
         {% endfor %}
       </div>
     </div>
-  </div>
 {% endblock %}

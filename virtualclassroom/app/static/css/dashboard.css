@@ -1,11 +1,3 @@
-/* Other Classes for Page Styling */
-
-body {
-  background: #696969;
-}
-
-/* Change this breakpoint if you change the breakpoint of the navbar */
-
 @media (min-width: 992px) {
   .animate {
     animation-duration: 0.3s;
