@@ -6,3 +6,4 @@ admin.site.register(Lecture)
 admin.site.register(Resource)
 admin.site.register(School)
 admin.site.register(User)
+
