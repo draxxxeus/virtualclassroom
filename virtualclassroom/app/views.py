@@ -11,18 +11,19 @@ from .forms import UploadLectureForm
 def index(request):
     return render(request, "index.html")
 
-def login(request):
+def login_user(request):
     if request.method == 'GET':
         if request.session.get('user_id', False):
-            pass
+            return HttpResponseRedirect(reverse('index'))
         else:
             return render(request, 'login.html')
     elif request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user = authenticate(username=email, password=password)
+        user = authenticate(request, username=email, password=password)
         if user:
             if user.is_active:
+                login(request, user)
                 request.session['user_id'] = str(user.id)
                 return HttpResponseRedirect(reverse('dashboard'))
         else:
@@ -43,7 +44,7 @@ def lecture(request):
     else:
         return HttpResponseNotFound()
 
-def logout(request):
+def logout_user(request):
 	try:
 		del request.session['user_id']
 	except KeyError:
@@ -51,6 +52,7 @@ def logout(request):
 
 	return HttpResponseRedirect(reverse('login'))
 
+@login_required
 def upload(request):
     if request.method == 'GET':
         if request.session.get('user_id', False) and request.session.get('role') != 'student':
