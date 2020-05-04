@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, Http404, JsonResponse
@@ -29,6 +30,7 @@ def login_user(request):
                 request.session['role'] = user.role
                 return HttpResponseRedirect(reverse('dashboard'))
         else:
+            messages.error(request, 'Invalid email or password.')
             return HttpResponseRedirect(reverse('login'))
 
 
