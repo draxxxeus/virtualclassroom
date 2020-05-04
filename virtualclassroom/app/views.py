@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, Http404, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import Course, Discussion, Lecture, Resource
+from .models import Course, Discussion, Lecture, Notifications, Resource
 from .forms import UploadLectureForm
 
 
@@ -103,12 +103,11 @@ def upload(request):
                             complete_by=lecture.complete_by
                             )
                     resource_notes.save()
-            else:
-                print("invalid form")
 
-            return HttpResponseRedirect(reverse('lecture') + '?id=' + str(lecture.id))
-        else:
-            return HttpResponseRedirect(reverse('login'))
+                Notifications.new_lecture_notification(lecture)
+                return HttpResponseRedirect(reverse('lecture') + '?id=' + str(lecture.id))
+    else:
+        raise Http404
 
 
 @login_required
