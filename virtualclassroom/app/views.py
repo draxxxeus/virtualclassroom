@@ -63,15 +63,12 @@ def logout_user(request):
 
 @login_required
 def upload(request):
-    if request.method == 'GET':
-        if request.session.get('user_id', False) and request.session.get('role') != 'RO':
+    if request.session.get('role') != 'RO':
+        if request.method == 'GET':
             courses = Course.get_courses(request.session.get('user_id'))
             context = {'courses': courses}
             return render(request, 'upload.html', context)
-        else:
-            return HttpResponseRedirect(reverse('login'))
-    elif request.method == 'POST':
-        if request.session.get('user_id', False) and request.session.get('role') != 'RO':
+        elif request.method == 'POST':
             lecture_form = UploadLectureForm(request.POST)
             recording = request.FILES.getlist('recording')[0]
             notes = request.FILES.getlist('notes')
