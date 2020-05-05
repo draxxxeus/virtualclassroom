@@ -2,51 +2,49 @@
 {% block content %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
-		<header>
-			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-				</ol>
-				<div class="carousel-inner" role="listbox">
-					<!-- Slide One - Set the background image for this slide in the line below -->
-					<div class="carousel-item active" style="background-image: url('https://source.unsplash.com/LAaSoL0LrYs/1920x1080')">
-						<div class="carousel-caption d-none d-md-block">
-							<h2 class="display-4">First Slide</h2>
-							<p class="lead">This is a description for the first slide.</p>
-						</div>
-					</div>
-					<!-- Slide Two - Set the background image for this slide in the line below -->
-					<div class="carousel-item" style="background-image: url('https://source.unsplash.com/bF2vsubyHcQ/1920x1080')">
-						<div class="carousel-caption d-none d-md-block">
-							<h2 class="display-4">Second Slide</h2>
-							<p class="lead">This is a description for the second slide.</p>
-						</div>
-					</div>
-					<!-- Slide Three - Set the background image for this slide in the line below -->
-					<div class="carousel-item" style="background-image: url('https://source.unsplash.com/szFUQoyvrxM/1920x1080')">
-						<div class="carousel-caption d-none d-md-block">
-							<h2 class="display-4">Third Slide</h2>
-							<p class="lead">This is a description for the third slide.</p>
-						</div>
-					</div>
-				</div>
-				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="sr-only">Previous</span>
-						</a>
-				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
-						</a>
-			</div>
-		</header>
-		<!-- Page Content -->
-		<section class="py-5">
-			<div class="container">
-				<h1 class="display-4">Full Page Image Slider</h1>
-				<p class="lead">The background images for the slider are set directly in the HTML using inline CSS. The images in this snippet are from <a href="https://unsplash.com">Unsplash</a>, taken by <a href="https://unsplash.com/@joannakosinska">Joanna Kosinska</a>!</p>
-			</div>
-		</section>
+    <div class="features-clean pt-5">
+        <div class="container pt-5">
+            <div class="row features pt-5">
+                <div class="col-sm-6 col-lg-4 item"><i class="fa fa-chalkboard-teacher icon"></i>
+                    <h3 class="name">e-learning</h3>
+                    <p class="description">Deliver enhanced learning through recorded lectures and live sessions*</p>
+                </div>
+                <div class="col-sm-6 col-lg-4 item"><i class="fa fa-comments icon"></i>
+                    <h3 class="name">Real-time discussions</h3>
+                    <p class="description">Engage in real-time discussions between teachers and students</p>
+                </div>
+                <div class="col-sm-6 col-lg-4 item"><i class="fa fa-eye-slash icon"></i>
+                    <h3 class="name">Content Privacy</h3>
+                    <p class="description">Your videos are visible only to your audience. Content is private and accessible only by the students of your institution</p>
+                </div>
+                <div class="col-sm-6 col-lg-4 item"><i class="fa fa-book-open icon"></i>
+                    <h3 class="name">Integrate Textbook</h3>
+                    <p class="description">Show digital textbook along with your lectures to assist better explanations</p>
+                </div>
+                <div class="col-sm-6 col-lg-4 item"><i class="fa fa-sticky-note icon"></i>
+                    <h3 class="name">Share Assignments</h3>
+                    <p class="description">Assignments are an important part of learning. Share notes/assignments with your students and help them learn better</p>
+                </div>
+                <div class="col-sm-6 col-lg-4 item"><i class="fa fa-bell icon"></i>
+                    <h3 class="name">Notifications</h3>
+                    <p class="description">Instant notifications about new lectures to the students</p>
+                </div>
+                <div class="col-sm-6 col-lg-4 item"><i class="fa fa-chart-line icon"></i>
+                    <h3 class="name">Analytics</h3>
+                    <p class="description">As a teacher, it is important to know if your students are understanding the concepts. Dig into the analytics and see how much time are the students spending on understanding</p>
+                </div>
+                <div class="col-sm-6 col-lg-4 item"><i class="fa fa-infinity icon"></i>
+                    <h3 class="name">Upto 7000 hrs of Content</h3>
+                    <p class="description">Don't let limits stop you from teaching. Upload upto 7000 hours of content</p>
+                </div>
+                <div class="col-sm-6 col-lg-4 item"><i class="fa fa-rupee-sign icon"></i>
+                    <h3 class="name">Low Cost</h3>
+                    <p class="description">Tailored pricing for your tailored needs</p>
+                </div>
+            </div>
+            <div class="intro">
+              <p class="text-center">If you are a school administrator, coaching institution or a private tutor, contact for demo and pricing on <a href="mailto:contact@oneschool.pw">contact@oneschool.pw</a></p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
