@@ -30,3 +30,19 @@ class Notifications():
             sg.client.mail.send.post(request_body=mail.get())
         except Exception.BadRequestsError as e:
             print(e)
+
+    @classmethod
+    def send_email(cls, to, subject, body):
+        mail = Mail(
+            from_email="noreply@oneschool.pw",
+            to_emails=to,
+            subject=subject,
+            html_content=body
+        )
+
+        try:
+            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+            response = sg.send(mail)
+            return response
+        except Exception as e:
+            return None

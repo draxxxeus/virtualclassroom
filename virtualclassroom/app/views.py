@@ -127,3 +127,25 @@ def post_comment(request):
             context = ''
 
         return JsonResponse(context)
+
+
+def contact_us(request):
+    if request.method == 'POST':
+        to = 'contact@oneschool.pw'
+        subject = 'New Contact'
+        body = "{0}<br />{1}<br />{2}<br />{3}<br />{4}".format(request.POST['name'], request.POST['institution'], request.POST['designation'], request.POST['email'], request.POST['phone'])
+
+        response = Notifications.send_email(to=to, subject=subject, body=body)
+
+        if response:
+            context = {
+                'status': 'success',
+                'message': 'Your details have been saved. We will get back to you shortly.'
+            }
+        else:
+            context = {
+                'status': 'error',
+                'message': 'We could not save your details. Please retry in sometime'
+            }
+
+        return JsonResponse(context)
