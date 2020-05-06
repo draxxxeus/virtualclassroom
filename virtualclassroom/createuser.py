@@ -2,6 +2,7 @@ import factory
 from factory.django import DjangoModelFactory
 from app.models import User
 from app.models import School
+from app.models import Course
 from datetime import datetime
 
 teacher_template = 'testteacher{}@oneschool.pw'
@@ -15,7 +16,8 @@ class StudentFactory(DjangoModelFactory):
 
     username = factory.Sequence(student_template.format)
     email = factory.Sequence(student_template.format)
-
+    role = 'RO'
+    standard = 'X'
     password = password
 
     class Meta:
@@ -26,6 +28,7 @@ class TeacherFactory(DjangoModelFactory):
 
     username = factory.Sequence(teacher_template.format)
     email = factory.Sequence(teacher_template.format)
+    role = 'RW'
     password = password
 
     class Meta:
@@ -43,8 +46,21 @@ class SchoolFactory(DjangoModelFactory):
         model = School
 
 
-school = SchoolFactory()
-teacher = TeacherFactory()
-student1 = StudentFactory()
-student2 = StudentFactory()
+class CourseFactory(DjangoModelFactory):
+    academic_year = '2020'
+    standard = 'X'
+    subject = 'History'
+    textbook = '/a/b/c.pdf'
+
+    class Meta:
+        model = Course
+
+
+def createObjects():
+    school = SchoolFactory()
+    teacher = TeacherFactory(school=school)
+    student1 = StudentFactory(school=school, standard='X')
+    student2 = StudentFactory(school=school, standard='XI')
+    course = CourseFactory(teacher=teacher, standard='X', school=school)
+    course = CourseFactory(teacher=teacher, standard='XI', school=school)
 
