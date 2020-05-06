@@ -12,11 +12,11 @@ def get_textbook_path(instance, filename):
 class Course(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     school = models.ForeignKey('School', on_delete=models.CASCADE)
-    academic_year = models.CharField(max_length=14)
+    academic_year = models.CharField(max_length=14, default=None, null=True, blank=True)
     standard = models.CharField(max_length=14)
     subject = models.CharField(max_length=30)
     teacher = models.ForeignKey('User', on_delete=models.CASCADE)
-    textbook = models.FileField(upload_to=get_textbook_path, null=True)
+    textbook = models.FileField(upload_to=get_textbook_path, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
