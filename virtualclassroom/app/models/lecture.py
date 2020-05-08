@@ -26,7 +26,13 @@ class Lecture(BaseModel):
     def get_lecture(cls, lecture_id, user, metadata=True):
         try:
             lecture = Lecture.objects.get(id=lecture_id)
-            if lecture.course.standard == user.standard:
+            show_lecture = False
+            if user.role != 'RO':
+                show_lecture = True
+            elif user.role == 'RO' and (lecture.course.standard == user.standard):
+                show_lecture = True
+
+            if show_lecture:
                 if metadata:
                     recording = Resource.get_resources(lecture=lecture, type='R')
                     assignments = Resource.get_resources(lecture=lecture, type='A')
