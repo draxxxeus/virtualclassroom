@@ -11,7 +11,7 @@ def get_textbook_path(instance, filename):
 
 class Course(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    school = models.ForeignKey('School', on_delete=models.CASCADE)
+    institution = models.ForeignKey('Institution', on_delete=models.CASCADE)
     academic_year = models.CharField(max_length=14, default=None, null=True, blank=True)
     standard = models.CharField(max_length=14)
     subject = models.CharField(max_length=30)
