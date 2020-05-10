@@ -8,7 +8,26 @@
       </h1>
       <div class="row">
         <div class="col-md-8">
+          {% if recording.link %}
+          <div data-vimeo-url="{{recording.link}}" data-vimeo-height="400px" id="vimeo_video01">
+          <script src="https://player.vimeo.com/api/player.js"></script>
+          <script>
+              $( document ).ready(function() {
+                   var options = {
+                      "title": false,
+                      "speed": true,
+                      "controls": true,
+                   }
+                   var video01Player = new Vimeo.Player('vimeo_video01', options);
+                   video01Player.on('play', function() {
+                     console.log('Played the first video');
+                   });
+               });
+          </script>
+
+          {% else %}
           <video height="400" class="img-fluid" src="{{recording.media.url}}" alt="" controls controlsList="nodownload noremoteplayback" cross-origin="use-credentials">
+          {% endif %}
         </div>
         <div class="col-md-4">
           {% if lecture.course.textbook %}

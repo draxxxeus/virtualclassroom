@@ -1,0 +1,8 @@
+[vimeo]
+client_id=<VIMEO_CLIENT_ID>
+client_secret=<VIMEO_CLIENT_SECRET>
+public_view_token=<VIMEO_TOKEN_PUBLIC_VIEW_ACCESS>
+private_upload_token=<VIMEO_TOKEN_UPLOAD_ACCESS>
+
+[sendgrid]
+api_key=<SENDGRID_KEY>

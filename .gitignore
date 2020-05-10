@@ -2,3 +2,5 @@
 /.idea/
 *.pyc
 *.swp
+*creds.cfg
+.DS_Store

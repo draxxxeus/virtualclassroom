@@ -91,6 +91,9 @@ def upload(request):
                         publish_on=lecture.publish_on,
                         complete_by=lecture.complete_by
                         )
+
+                resource_recording.save()
+                resource_recording.upload_to_vimeo()
                 resource_recording.save()
 
                 for note in notes:

@@ -1,6 +1,7 @@
 import uuid
-
+import os
 from django.db import models
+from ..utils.vimeo import Vimeo
 
 from .baseModel import BaseModel
 
@@ -31,3 +32,10 @@ class Resource(BaseModel):
         res = Resource.objects.filter(lecture=lecture, type=type)
 
         return res
+
+    def upload_to_vimeo(self):
+        relative_path_on_filesystem = self.media.url.strip('/')
+        file_path = os.path.join(os.getcwd(), relative_path_on_filesystem)
+        vimeo = Vimeo()
+        link = vimeo.upload(file_path)
+        self.link = link
