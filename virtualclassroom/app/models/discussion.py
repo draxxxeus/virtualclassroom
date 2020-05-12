@@ -8,7 +8,7 @@ class Discussion(BaseModel):
     comment = models.CharField(max_length=1022, null=False, blank=False)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
     lecture = models.ForeignKey('Lecture', on_delete=models.CASCADE)
-    parent_comment = models.ForeignKey('Discussion', on_delete=models.CASCADE, default=None, null=True, blank=True)
+    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, default=None, null=True, blank=True)  # noqa: E501
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
