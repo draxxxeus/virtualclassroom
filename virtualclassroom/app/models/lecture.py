@@ -6,8 +6,6 @@ from datetime import datetime
 
 from .baseModel import BaseModel
 from .course import Course
-from .resource import Resource
-from .discussion import Discussion
 
 
 class Lecture(BaseModel):
@@ -34,9 +32,10 @@ class Lecture(BaseModel):
 
             if show_lecture:
                 if metadata:
-                    recording = Resource.get_resources(lecture=lecture, type='R')
-                    assignments = Resource.get_resources(lecture=lecture, type='A')
-                    discussions = Discussion.get_discussions(lecture=lecture)
+                    resources = lecture.resource_set.all()
+                    recording = [r for r in resources if r.type == 'R']
+                    assignments = [r for r in resources if r.type == 'A']
+                    discussions = lecture.discussion_set.all()
                     prepared_lecture = {
                             'lecture': lecture,
                             'recording': recording[0],
