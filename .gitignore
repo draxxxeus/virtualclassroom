@@ -4,3 +4,4 @@
 *.swp
 *creds.cfg
 .DS_Store
+db.sqlite3
