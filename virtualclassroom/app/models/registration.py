@@ -17,6 +17,6 @@ class Registration(BaseModel):
     institution = models.ForeignKey('Institution', on_delete=models.CASCADE)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
     standard = models.ForeignKey('Standard', on_delete=models.CASCADE, default=None, null=True, blank=True)  # noqa: E501
-    role = models.CharField(max_length=2, choices=USER_ROLES, default='RO')
+    user_role = models.CharField(max_length=2, choices=USER_ROLES, default='RO')  # noqa: E501
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)

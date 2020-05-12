@@ -10,8 +10,8 @@ from .course import Course
 
 class Lecture(BaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    chapter = models.CharField(max_length=7, default=None, null=True, blank=True)
-    topic = models.CharField(max_length=126, default=None, null=True, blank=True)
+    chapter = models.CharField(max_length=7, default=None, null=True, blank=True)  # noqa: E501
+    topic = models.CharField(max_length=126, default=None, null=True, blank=True)  # noqa: E501
     index = models.PositiveIntegerField(default=1, null=False)
     course = models.ForeignKey('Course', on_delete=models.CASCADE)
     teacher = models.ForeignKey('User', on_delete=models.CASCADE)
@@ -27,7 +27,7 @@ class Lecture(BaseModel):
             show_lecture = False
             if user.role != 'RO':
                 show_lecture = True
-            elif user.role == 'RO' and (lecture.course.standard == user.standard):
+            elif user.role == 'RO' and (lecture.course.standard == user.standard):  # noqa: E501
                 show_lecture = True
 
             if show_lecture:

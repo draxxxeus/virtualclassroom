@@ -7,7 +7,7 @@ from .baseModel import BaseModel
 
 
 def get_resource_path(instance, filename):
-    return 'lectures/{0}/{1}/{2}'.format(instance.lecture_id, instance.type, filename)
+    return 'lectures/{0}/{1}/{2}'.format(instance.lecture_id, instance.type, filename)  # noqa: E501
 
 
 class Resource(BaseModel):

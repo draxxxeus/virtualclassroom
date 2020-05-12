@@ -10,14 +10,14 @@ class Notifications():
 
     @classmethod
     def new_lecture_notification(cls, lecture):
-        students = User.objects.filter(standard=lecture.course.standard, role='RO')
+        students = User.objects.filter(standard=lecture.course.standard, role='RO')  # noqa: E501
         student_emails = [student.email for student in students]
         lecture_url = "https://oneschool.pw/lecture/?id={0}".format(lecture.id)
 
         mail = Mail()
         mail.from_email = Email("noreply@oneschool.pw", "Notification")
-        mail.subject = "New lecture added for {0}".format(lecture.course.subject)
-        mail.add_content(Content("text/html", ("Visit <a href='{0}'>this link</a> to see the new lecture.".format(lecture_url))))
+        mail.subject = "New lecture added for {0}".format(lecture.course.subject)  # noqa: E501
+        mail.add_content(Content("text/html", ("Visit <a href='{0}'>this link</a> to see the new lecture.".format(lecture_url))))  # noqa: E501
 
         personalization = Personalization()
         personalization.add_to(Email(lecture.teacher.email))
