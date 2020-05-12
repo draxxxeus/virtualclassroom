@@ -3,8 +3,8 @@ import os
 from munch import munchify
 from .singleton import Singleton
 
-CREDENTIAL_FILE = os.environ.get('CREDENTIAL_FILE','creds.cfg')
-CONFIG_FILE = os.environ.get('SETUP_FILE','setup.cfg')
+CREDENTIAL_FILE = os.environ.get('CREDENTIAL_FILE', 'creds.cfg')
+CONFIG_FILE = os.environ.get('SETUP_FILE', 'setup.cfg')
 
 
 class Config(metaclass=Singleton):
@@ -32,4 +32,3 @@ class Config(metaclass=Singleton):
         _config.read(config_file)
         config = munchify(_config)
         return config
-
