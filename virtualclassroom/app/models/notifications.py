@@ -28,8 +28,8 @@ class Notifications():
         sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
         try:
             sg.client.mail.send.post(request_body=mail.get())
-        except Exception.BadRequestsError as e:
-            print(e)
+        except Exception:
+            return None
 
     @classmethod
     def send_email(cls, to, subject, body):
@@ -44,5 +44,5 @@ class Notifications():
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
             response = sg.send(mail)
             return response
-        except Exception as e:
+        except Exception:
             return None
