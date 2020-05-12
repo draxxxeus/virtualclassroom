@@ -13,12 +13,6 @@ class Discussion(BaseModel):
     date_modified = models.DateTimeField(auto_now=True)
 
     @classmethod
-    def get_discussions(cls, lecture):
-        discussions = Discussion.objects.filter(lecture=lecture).order_by('-date_created')
-
-        return discussions
-
-    @classmethod
     def post_comment(cls, comment, user, lecture):
         discussion = Discussion(comment=comment, user=user, lecture=lecture)
         discussion.save()

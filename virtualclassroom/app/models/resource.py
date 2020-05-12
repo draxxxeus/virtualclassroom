@@ -27,12 +27,6 @@ class Resource(BaseModel):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
-    @classmethod
-    def get_resources(cls, lecture, type):
-        res = Resource.objects.filter(lecture=lecture, type=type)
-
-        return res
-
     def upload_to_vimeo(self):
         relative_path_on_filesystem = self.media.url.strip('/')
         file_path = os.path.join(os.getcwd(), relative_path_on_filesystem)
