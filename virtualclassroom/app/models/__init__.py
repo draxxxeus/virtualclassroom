@@ -1,3 +1,5 @@
+from .standard import Standard
+from .registration import Registration
 from .course import Course  # noqa: F401
 from .lecture import Lecture  # noqa: F401
 from .notifications import Notifications  # noqa: F401
