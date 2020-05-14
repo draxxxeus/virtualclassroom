@@ -20,16 +20,12 @@ class Course(BaseModel):
     date_modified = models.DateTimeField(auto_now=True)
 
     @classmethod
-    def get_courses(cls, user_id):
-        courses = Course.objects.filter(teacher=user_id)
+    def get_courses(cls, user):
+        user_registration = user.active_registration
+        if user_registration.user_role == 'RW':
+            standard = user_registration.institution.standard_set.all()
+            courses = Course.objects.filter(teacher=user, standard__in=standard)  # noqa:E501
+        elif user_registration.user_role == 'RO':
+            courses = user_registration.standard.course_set.all()
 
         return courses
-
-    @classmethod
-    def get_courses_for_user(cls, user):
-        try:
-            courses = Course.objects.filter(standard=user.standard)
-
-            return list(courses)
-        except Exception:
-            return None
