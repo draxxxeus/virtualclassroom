@@ -36,15 +36,15 @@ def login_user(request):
 
 @login_required
 def dashboard(request):
-    context = Lecture.get_lectures_for_user(user=request.user)
+    lectures = Lecture.get_dashboard(request)
+    context = {'lectures': list(lectures)}
     return render(request, 'dashboard.html', context)
 
 
 @login_required
 def lecture(request):
     lecture_id = request.GET.get('id', False)
-
-    context = Lecture.get_lecture(lecture_id=lecture_id, user=request.user)
+    context = Lecture.get_lecture(request=request, lecture_id=lecture_id)
     if context:
         return render(request, 'lecture.html', context)
     else:
