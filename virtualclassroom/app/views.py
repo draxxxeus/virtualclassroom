@@ -27,7 +27,9 @@ def login_user(request):
             if user.is_active:
                 login(request, user)
                 request.session['user_id'] = str(user.id)
-                request.session['role'] = user.role
+                if not user.active_registration:
+                    user.set_active_registration()
+
                 return HttpResponseRedirect(reverse('dashboard'))
         else:
             messages.error(request, 'Invalid email or password.')
