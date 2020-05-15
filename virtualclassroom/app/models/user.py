@@ -9,10 +9,9 @@ class User(AbstractUser):
     phone = models.CharField(max_length=14, default=None, null=True, blank=True)  # noqa: E501
     active_registration = models.ForeignKey('Registration', related_name='active_registration', on_delete=models.CASCADE, default=None, null=True, blank=True)  # noqa: E501
 
-    @classmethod
-    def set_active_registration(cls, request, registration=None):
+    def set_active_registration(self, registration=None):
         if not registration:
-            registration = request.user.registration_set.all()[0]
+            registration = self.registration_set.all()[0]
 
-        request.user.active_registration = registration
-        request.user.save()
+        self.active_registration = registration
+        self.save()
