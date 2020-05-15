@@ -7,7 +7,7 @@
         {% for lecture in lectures %}
           <div class="col-lg-3 col-md-4 col-6">
             <a href="/lecture/?id={{lecture.id}}" class="d-block mb-4 h-100">
-              <img class="img-fluid img-thumbnail" src="" alt="{{lecture.course.subject}} | Lecture {{lecture.index}} - {{lecture.date_created|date:"M d, Y"}}">
+              <img class="img-fluid img-thumbnail" src="" alt="{{lecture.course.standard.name}} {{lecture.course.subject}} | Lecture {{lecture.index}} - {{lecture.date_created|date:"M d, Y"}}">
             </a>
           </div>
         {% endfor %}
