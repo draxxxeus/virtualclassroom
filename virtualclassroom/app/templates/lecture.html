@@ -1,41 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/lecture.css' %}">
-    <div class="container pt-5">
-      <h1 class="my-4">{{lecture.course.standard}} - {{lecture.course.subject}}
-        <small>Lecture {{lecture.index}} | {{lecture.chapter}} - {{lecture.topic}}</small>
-      </h1>
-      <div class="row">
+  {% load tz %}
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/lecture.css' %}">
+  <div class="container pt-5">
+    <h1 class="my-4">{{lecture.course.standard.name}} - {{lecture.course.subject}}
+      <small>Lecture {{lecture.index}} | CH. {{lecture.chapter}} - {{lecture.topic}}</small>
+    </h1>
+    <div class="row">
+      {% for recording in recordings %}
         <div class="col-md-8">
           {% if recording.link %}
-          <div data-vimeo-url="{{recording.link}}" data-vimeo-height="400px" id="vimeo_video01">
-          <script src="https://player.vimeo.com/api/player.js"></script>
-          <script>
-              $( document ).ready(function() {
-                   var options = {
-                      "title": false,
-                      "speed": true,
-                      "controls": true,
-                   }
-                   var video01Player = new Vimeo.Player('vimeo_video01', options);
-                   video01Player.on('play', function() {
-                     console.log('Played the first video');
+            <div data-vimeo-url="{{recording.link}}" data-vimeo-height="400px" id="vimeo_video01">
+              <script src="https://player.vimeo.com/api/player.js"></script>
+              <script>
+                  $( document ).ready(function() {
+                       var options = {
+                          "title": false,
+                          "speed": true,
+                          "controls": true,
+                       }
+                       var video01Player = new Vimeo.Player('vimeo_video01', options);
+                       video01Player.on('play', function() {
+                         console.log('Played the first video');
+                       });
                    });
-               });
-          </script>
-
+              </script>
+            </div>
           {% else %}
-          <video height="400" class="img-fluid" src="{{recording.media.url}}" alt="" controls controlsList="nodownload noremoteplayback" cross-origin="use-credentials">
+            <video height="400" class="img-fluid" src="{{recording.media.url}}" alt="" controls controlsList="nodownload noremoteplayback" cross-origin="use-credentials">
           {% endif %}
         </div>
-        <div class="col-md-4">
-          {% if lecture.course.textbook %}
-          <iframe height="400" src="{{lecture.course.textbook.url}}" />
-          </iframe>
-          {% endif %}
-        </div>
+      {% endfor %}
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        {% if lecture.course.textbook %}
+          <li><a class="white" href="{{assignment.media.url}}">{{lecture.course.textbook.url}}</a></li>
+        {% endif %}
       </div>
+    </div>
     <div class="row">
       <div class="col-md-8">
         <h3 class="my-3">Assignments</h3>
@@ -65,7 +69,7 @@
     <div class="row">
       <div class="col-md-12">
         <ul id="discussions" class="list-unstyled">
-          {% for discussion in discussions %}
+          {% for discussion in discussions reversed %}
             <small>{{discussion.user.first_name}} {{discussion.user.last_name}}</small>
             <small class="float-right">{{discussion.date_created}}</small>
             <li>{{discussion.comment}}</li>
