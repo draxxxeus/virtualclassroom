@@ -67,7 +67,7 @@ def logout_user(request):
 def upload(request):
     if request.session.get('role') != 'RO':
         if request.method == 'GET':
-            courses = Course.get_courses(request.session.get('user_id'))
+            courses = Course.get_courses(request.user)
             context = {'courses': courses}
             return render(request, 'upload.html', context)
         elif request.method == 'POST':
@@ -119,7 +119,7 @@ def post_comment(request):
     if request.method == 'POST':
         lecture_id = request.POST['lecture_id']
         comment = request.POST['comment']
-        lecture = Lecture.get_lecture(lecture_id=lecture_id, user=request.user, metadata=False)
+        lecture = Lecture.get_lecture(request=request, lecture_id=lecture_id)
 
         if lecture:
             discussion = Discussion.post_comment(comment=comment, user=request.user, lecture=lecture)
