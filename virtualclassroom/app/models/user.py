@@ -11,7 +11,7 @@ class User(AbstractUser):
 
     def set_active_registration(self, registration=None):
         if not registration:
-            registration = self.registration_set.all()[0]
+            registration = self.registration_set.first()
 
         self.active_registration = registration
         self.save()
