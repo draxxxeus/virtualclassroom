@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect, Http404, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import Course, Discussion, Lecture, Notifications, Resource
+from .models import Course, Discussion, Institution, Lecture, Notifications, Registration, Resource  # noqa: E501
 from .forms import UploadLectureForm
 
 
@@ -154,3 +154,13 @@ def contact_us(request):
             }
 
         return JsonResponse(context)
+
+
+@login_required
+def switch_account(request):
+    if request.method == 'POST':
+        ins = Institution.objects.get(id=request.POST['institution_id'])
+        reg = Registration.objects.get(user=request.user, institution=ins)
+        request.user.set_active_registration(registration=reg)
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
