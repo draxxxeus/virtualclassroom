@@ -65,10 +65,12 @@
               <form id="switchaccountform" action="/switch-account/" method="post">
                 {% csrf_token %}
                 {% for reg in registrations %}
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="institution_id" id="{{reg.institution.id}}" value="{{reg.institution.id}}">
-                    <label class="form-check-label" for="{{reg.institution.id}}">{{ reg.institution.name }}</label>
-                  </div>
+                  {% if reg.institution.id != user.active_registration.institution.id %}
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="institution_id" id="{{reg.institution.id}}" value="{{reg.institution.id}}">
+                      <label class="form-check-label" for="{{reg.institution.id}}">{{ reg.institution.name }}</label>
+                    </div>
+                  {% endif %}
                 {% endfor %}
               </form>
             </div>
