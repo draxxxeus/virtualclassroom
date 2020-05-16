@@ -13,7 +13,7 @@
 								<div class="form-label-group">
 									<select name="course" class="form-control" required>
                     {% for course in courses %}
-                    <option value="{{course.id}}">{{course.standard}} - {{course.subject}}</option>
+                    <option value="{{course.id}}">{{course.standard.name}} - {{course.subject}}</option>
                     {% endfor %}
 									</select>
 								</div>
