@@ -1,3 +1,4 @@
+import logging
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -7,6 +8,9 @@ from django.urls import reverse
 
 from .models import Course, Discussion, Institution, Lecture, Notifications, Registration, Resource  # noqa: E501
 from .forms import UploadLectureForm
+
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -29,7 +33,6 @@ def login_user(request):
                 request.session['user_id'] = str(user.id)
                 if not user.active_registration:
                     user.set_active_registration()
-
                 return HttpResponseRedirect(reverse('dashboard'))
         else:
             messages.error(request, 'Invalid email or password.')

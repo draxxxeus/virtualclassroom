@@ -6,6 +6,10 @@ from datetime import datetime
 
 from .baseModel import BaseModel
 from .course import Course
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class Lecture(BaseModel):
@@ -19,6 +23,19 @@ class Lecture(BaseModel):
     complete_by = models.DateTimeField(default=None, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
+
+    def as_dict(self):
+        data = dict(
+            id=self.id,
+            chapter=self.chapter,
+            topic=self.topic,
+            index=self.index,
+            course=self.course.as_dict(),
+            teacher=self.teacher.as_dict(),
+            published_on=self.publish_on,
+            complete_by=self.complete_by
+        )
+        return data
 
     @classmethod
     def get_dashboard(cls, request):
@@ -59,5 +76,17 @@ class Lecture(BaseModel):
                 return prepared_lecture
             else:
                 raise
-        except Exception:
+        except Exception as e:
+            logger.exception("Returning None as error occurred while fetching lecture data: {}".format(e))
             return None
+
+
+    @classmethod
+    def get_lectures_for_course(cls, course_id):
+        try:
+            lectures = Lecture.objects.filter(course=course_id)
+            return lectures
+        except Exception as e:
+            logger.exception("Returning empty like because error occurred while fetching lectures for course: {}"
+                             .format(course_id))
+            return []

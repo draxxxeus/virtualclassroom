@@ -25,7 +25,7 @@ SECRET_KEY = '9b@pq1x&z9l_ubgbo$yk5_goh5q-9)2_l$itc@04z=o_x=1&x8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['oneschool.pw', '127.0.0.1']
+ALLOWED_HOSTS = ['oneschool.pw', '127.0.0.1', '10.0.2.2', '192.168.0.101']
 
 
 # Application definition
@@ -144,4 +144,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 

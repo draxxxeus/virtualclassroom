@@ -12,6 +12,16 @@ class Discussion(BaseModel):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
+    def as_dict(self):
+        data = dict(
+            id=self.id,
+            comment=self.comment,
+            user=self.user.as_dict(),
+            lecture=self.lecture.as_dict(),
+            parent_comment_id=self.parent_comment.id
+        )
+        return data
+
     @classmethod
     def post_comment(cls, comment, user, lecture):
         discussion = Discussion(comment=comment, user=user, lecture=lecture)

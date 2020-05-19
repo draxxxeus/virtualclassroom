@@ -4,13 +4,15 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Email, Content, Mail, Personalization
 
 from .user import User
+from .registration import Registration
 
 
 class Notifications():
 
     @classmethod
     def new_lecture_notification(cls, lecture):
-        students = User.objects.filter(standard=lecture.course.standard, role='RO')  # noqa: E501
+        registrations = Registration.objects.filter(standard=lecture.course.standard, user_role='RO')
+        students = [x.user for x in registrations]  # noqa: E501
         student_emails = [student.email for student in students]
         lecture_url = "https://oneschool.pw/lecture/?id={0}".format(lecture.id)
 
